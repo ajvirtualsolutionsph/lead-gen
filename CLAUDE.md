@@ -13,11 +13,18 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 
 ### ✅ Done
 
-_(Updated each session via the 123 workflow)_
+- Set up 123 end-of-session save workflow in CLAUDE.md
+- Created `memory/project_lead_gen_status.md` for session tracking
+- Initialized git repository in project folder
+- Created `.gitignore` protecting `.env`, `gmail_credentials.json`, `gmail_token.json`
+- Connected project to GitHub remote: `https://github.com/ajvirtualsolutionsph/lead-gen.git`
+- Made initial commit (12 files) and pushed to `origin/main`
 
 ### 🔲 Next Session
 
-_(Updated each session via the 123 workflow)_
+- Run `python organize_sheets.py` + `python status_report.py` to check pipeline state
+- Draft emails for any new leads (`python draft_agent.py`)
+- Send initial emails or follow-ups as needed (`python send_emails.py`)
 
 ---
 
