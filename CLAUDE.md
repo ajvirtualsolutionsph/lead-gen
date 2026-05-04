@@ -14,17 +14,23 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 ### ✅ Done
 
 - Set up 123 end-of-session save workflow in CLAUDE.md
-- Created `memory/project_lead_gen_status.md` for session tracking
-- Initialized git repository in project folder
-- Created `.gitignore` protecting `.env`, `gmail_credentials.json`, `gmail_token.json`
-- Connected project to GitHub remote: `https://github.com/ajvirtualsolutionsph/lead-gen.git`
-- Made initial commit (12 files) and pushed to `origin/main`
+- Initialized git repo, connected to GitHub remote, made initial commit
+- Re-authenticated Google OAuth (deleted expired `gmail_token.json`)
+- Drafted emails for 3 new leads (Just In Time Plumbing, The Smile Center, Dentistry of Virginia Beach)
+- Sent 4 initial emails (Olivia, Just In Time Plumbing, The Smile Center, Dentistry of Virginia Beach)
+- Updated `draft_agent.py` system prompt:
+  - Pricing corrected to $2,000–$2,500 (was $1,500–$2,000)
+  - Added AI Executive Assistant as a named, priority package (Notion + Claude)
+  - Primary focus rule: lead with AI Executive Assistant or AI Marketing Agent
+  - Updated package routing rules and salary comparison range
+  - Updated retainer pricing to match website (30%/25%/20%)
+- 12 follow-ups in Needs Follow Up tab still pending (hit Google Sheets rate limit — run manually)
 
 ### 🔲 Next Session
 
+- Run `python send_emails.py --followup` to send 12 pending follow-ups (wait 2–3 min after starting terminal before running)
 - Run `python organize_sheets.py` + `python status_report.py` to check pipeline state
-- Draft emails for any new leads (`python draft_agent.py`)
-- Send initial emails or follow-ups as needed (`python send_emails.py`)
+- Add new leads to Google Sheets then run `python draft_agent.py`
 
 ---
 
