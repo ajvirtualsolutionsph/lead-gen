@@ -24,12 +24,16 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
   - Primary focus rule: lead with AI Executive Assistant or AI Marketing Agent
   - Updated package routing rules and salary comparison range
   - Updated retainer pricing to match website (30%/25%/20%)
-- 12 follow-ups in Needs Follow Up tab still pending (hit Google Sheets rate limit — run manually)
+- Fixed `sheets.py`: added `expected_headers=LEADS_FIELDNAMES` to all `get_all_records()` calls (fixes blank/duplicate header crash on Needs Follow Up tab)
+- Fixed `status_report.py`: Needs Follow Up now splits into "follow-up not sent" (action needed) vs "aging" (follow-up already sent, waiting 2-day timer) — no more false action prompts
+- Drafted 4 new leads: NU Image Detail, Wings Mobile Detailing, Fusion Heating, Pride Mechanical (all in New Leads, ready to send)
+- Confirmed primary focus is AI Executive Assistant + AI Marketing Agent (no change needed)
+- 12 leads in Needs Follow Up are aging (follow-ups sent 05/04, move to No Reply/Declined tomorrow)
 
 ### 🔲 Next Session
 
-- Run `python send_emails.py --followup` to send 12 pending follow-ups (wait 2–3 min after starting terminal before running)
-- Run `python organize_sheets.py` + `python status_report.py` to check pipeline state
+- Run `python organize_sheets.py` — will auto-move 12 aging leads to No Reply/Declined (2-day timer up)
+- Run `python send_emails.py --initial` from Windows Terminal to send 4 drafted leads (NU Image Detail, Wings Mobile Detailing, Fusion Heating, Pride Mechanical)
 - Add new leads to Google Sheets then run `python draft_agent.py`
 
 ---

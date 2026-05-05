@@ -85,7 +85,7 @@ def get_worksheet(tab_name):
 
 def read_rows(tab_name=TAB_NEW_LEADS):
     ws = get_worksheet(tab_name)
-    records = ws.get_all_records(default_blank="")
+    records = ws.get_all_records(default_blank="", expected_headers=LEADS_FIELDNAMES)
     for row in records:
         row.pop("aging_days", None)
         for col in LEADS_FIELDNAMES:
@@ -117,7 +117,7 @@ def read_all_rows():
     for tab in ALL_TABS:
         try:
             ws = spreadsheet.worksheet(tab)
-            records = ws.get_all_records(default_blank="")
+            records = ws.get_all_records(default_blank="", expected_headers=LEADS_FIELDNAMES)
             for row in records:
                 row.pop("aging_days", None)
                 for col in LEADS_FIELDNAMES:
