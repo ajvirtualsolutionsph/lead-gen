@@ -18,23 +18,30 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 - Re-authenticated Google OAuth (deleted expired `gmail_token.json`)
 - Drafted emails for 3 new leads (Just In Time Plumbing, The Smile Center, Dentistry of Virginia Beach)
 - Sent 4 initial emails (Olivia, Just In Time Plumbing, The Smile Center, Dentistry of Virginia Beach)
-- Updated `draft_agent.py` system prompt:
-  - Pricing corrected to $2,000–$2,500 (was $1,500–$2,000)
-  - Added AI Executive Assistant as a named, priority package (Notion + Claude)
-  - Primary focus rule: lead with AI Executive Assistant or AI Marketing Agent
-  - Updated package routing rules and salary comparison range
-  - Updated retainer pricing to match website (30%/25%/20%)
-- Fixed `sheets.py`: added `expected_headers=LEADS_FIELDNAMES` to all `get_all_records()` calls (fixes blank/duplicate header crash on Needs Follow Up tab)
-- Fixed `status_report.py`: Needs Follow Up now splits into "follow-up not sent" (action needed) vs "aging" (follow-up already sent, waiting 2-day timer) — no more false action prompts
-- Drafted 4 new leads: NU Image Detail, Wings Mobile Detailing, Fusion Heating, Pride Mechanical (all in New Leads, ready to send)
-- Confirmed primary focus is AI Executive Assistant + AI Marketing Agent (no change needed)
-- 12 leads in Needs Follow Up are aging (follow-ups sent 05/04, move to No Reply/Declined tomorrow)
+- Updated `draft_agent.py` system prompt (pricing, AI Executive Assistant priority, routing rules, retainer)
+- Fixed `sheets.py` blank-header crash; fixed `status_report.py` false action prompts
+- Drafted 4 new leads: NU Image Detail, Wings Mobile Detailing, Fusion Heating, Pride Mechanical
+- 12 aging leads auto-moved to No Reply/Declined (59 total now)
+- Added chat trigger commands: "draft email", "send initial email", "send follow up" — bypass terminal entirely
+- Added `--yes` flag to `draft_agent.py` and `send_emails.py` to skip all interactive prompts
 
 ### 🔲 Next Session
 
-- Run `python organize_sheets.py` — will auto-move 12 aging leads to No Reply/Declined (2-day timer up)
-- Run `python send_emails.py --initial` from Windows Terminal to send 4 drafted leads (NU Image Detail, Wings Mobile Detailing, Fusion Heating, Pride Mechanical)
-- Add new leads to Google Sheets then run `python draft_agent.py`
+- Type "draft email" to draft the 8 undrafted leads in New Leads
+- Type "send initial email" to send drafted leads — no terminal needed
+- Add new leads to Google Sheets whenever ready, then "draft email" again
+
+---
+
+## Chat Triggers (run from Claude — no terminal needed)
+
+| Phrase | Command |
+|---|---|
+| "draft email" | `python draft_agent.py --yes` |
+| "send initial email" | `python send_emails.py --initial --yes` |
+| "send follow up" | `python send_emails.py --followup --yes` |
+
+When the user types any of these phrases, run the corresponding command via Bash, show full output, and report results.
 
 ---
 

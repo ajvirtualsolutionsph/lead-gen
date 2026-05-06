@@ -95,7 +95,7 @@ def create_reply_message(to, subject, body_html, thread_id, in_reply_to):
     return {"raw": raw, "threadId": thread_id}
 
 
-def send_batch(rows, fieldnames, service, signature_html, subject_col, body_col, sent_col, label):
+def send_batch(rows, fieldnames, service, signature_html, subject_col, body_col, sent_col, label, yes=False):
     pending = [
         r for r in rows
         if r.get("status", "").strip() == "drafted"
@@ -129,10 +129,11 @@ def send_batch(rows, fieldnames, service, signature_html, subject_col, body_col,
         print()
 
     # Single confirmation for the whole batch
-    choice = input(f"  Send all {len(pending)} {label} email(s)? (y = send all / n = cancel): ").strip().lower()
-    if choice != "y":
-        print(f"  {label.capitalize()} emails cancelled.\n")
-        return 0
+    if not yes:
+        choice = input(f"  Send all {len(pending)} {label} email(s)? (y = send all / n = cancel): ").strip().lower()
+        if choice != "y":
+            print(f"  {label.capitalize()} emails cancelled.\n")
+            return 0
 
     # Re-read the sheet to catch any rows already sent (e.g. duplicate run after token expiry)
     if sent_col in ("sent", "followup_sent"):
@@ -199,7 +200,7 @@ def send_batch(rows, fieldnames, service, signature_html, subject_col, body_col,
     return sent_count
 
 
-def run(mode="both"):
+def run(mode="both", yes=False):
     """
     mode: "initial"  — send initial emails only (reads New Leads tab)
           "followup" — send follow-up emails only (reads Needs Follow Up tab)
@@ -233,7 +234,7 @@ def run(mode="both"):
             initial_sent = send_batch(
                 rows, fieldnames, service, signature_html,
                 subject_col="subject", body_col="email_body", sent_col="sent",
-                label="initial"
+                label="initial", yes=yes
             )
             write_rows(rows, TAB_NEW_LEADS, fieldnames=fieldnames)
 
@@ -245,7 +246,7 @@ def run(mode="both"):
                 print(f"  {len(followup_rows)} follow-up(s) are ready to send.")
                 print(f"  These are SEPARATE from the initial emails above.")
                 print(f"{'='*60}")
-                gate = input(f"\n  Review and send follow-ups now? (y = yes / n = skip): ").strip().lower()
+                gate = "y" if yes else input(f"\n  Review and send follow-ups now? (y = yes / n = skip): ").strip().lower()
                 if gate != "y":
                     print("  Follow-ups skipped. Run: python send_emails.py --followup\n")
                     print(f"\nDone. {initial_sent} initial email(s) sent. Google Sheets updated.")
@@ -264,7 +265,7 @@ def run(mode="both"):
             followup_sent = send_batch(
                 followup_rows, fieldnames_fu, service, signature_html,
                 subject_col="subject", body_col="followup", sent_col="followup_sent",
-                label="follow-up"
+                label="follow-up", yes=yes
             )
             write_rows(followup_rows, TAB_NEEDS_FOLLOWUP, fieldnames=fieldnames_fu)
 
@@ -285,11 +286,15 @@ def _run_organize():
 
 
 if __name__ == "__main__":
-    import sys
-    args = sys.argv[1:]
-    if "--initial" in args:
-        run(mode="initial")
-    elif "--followup" in args:
-        run(mode="followup")
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--initial", action="store_true")
+    parser.add_argument("--followup", action="store_true")
+    parser.add_argument("--yes", action="store_true", help="Skip confirmation prompts")
+    args = parser.parse_args()
+    if args.initial:
+        run(mode="initial", yes=args.yes)
+    elif args.followup:
+        run(mode="followup", yes=args.yes)
     else:
-        run(mode="both")
+        run(mode="both", yes=args.yes)

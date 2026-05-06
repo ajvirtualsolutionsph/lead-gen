@@ -1,3 +1,4 @@
+import argparse
 import os
 from datetime import date
 
@@ -130,7 +131,8 @@ def parse_response(text):
     return fields
 
 
-def run():
+def run(yes=False):
+    _yes = yes
     api_key = os.getenv("ANTHROPIC_API_KEY")
     if not api_key:
         raise ValueError("ANTHROPIC_API_KEY not set in .env")
@@ -204,11 +206,15 @@ def run():
     drafted = sum(1 for r in rows if r.get("status") == "drafted")
     print(f"\nDone. {drafted}/{len(rows)} leads drafted. Saved to Google Sheets.")
 
-    choice = input("\nSend emails now? (y = send / n = skip): ").strip().lower()
-    if choice == "y":
-        import send_emails
-        send_emails.run()
+    if not _yes:
+        choice = input("\nSend emails now? (y = send / n = skip): ").strip().lower()
+        if choice == "y":
+            import send_emails
+            send_emails.run()
 
 
 if __name__ == "__main__":
-    run()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--yes", action="store_true", help="Skip confirmation prompts")
+    args = parser.parse_args()
+    run(yes=args.yes)
