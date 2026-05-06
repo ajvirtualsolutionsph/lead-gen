@@ -24,12 +24,15 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 - 12 aging leads auto-moved to No Reply/Declined (59 total now)
 - Added chat trigger commands: "draft email", "send initial email", "send follow up" — bypass terminal entirely
 - Added `--yes` flag to `draft_agent.py` and `send_emails.py` to skip all interactive prompts
+- Drafted 8 landscaping leads via "draft email" chat trigger (M&D Lawn, Outdoor Solutions, Apex Lawnco, EcoLandscapes, Big Heart, Steve & Brother, Charles & Son, Terra Landscaping)
+- Sent 8 initial emails via "send initial email" chat trigger — no terminal used
 
 ### 🔲 Next Session
 
-- Type "draft email" to draft the 8 undrafted leads in New Leads
-- Type "send initial email" to send drafted leads — no terminal needed
-- Add new leads to Google Sheets whenever ready, then "draft email" again
+- Add new leads to Google Sheets
+- Type "draft email" to draft them
+- Type "send initial email" to send — no terminal needed
+- In ~5 days, type "send follow up" for the 16 leads now in Initial Email Sent
 
 ---
 
