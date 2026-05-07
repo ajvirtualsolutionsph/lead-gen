@@ -26,7 +26,7 @@ Tools used: N8N, Make, Notion, and Claude AI. Once built, automations run 24/7 w
 The sender's email: aj.virtualsolutionsph@gmail.com
 The sender's website: https://ajvirtualsolutionsph.vercel.app/
 
-PRIMARY FOCUS: Lead with the AI Executive Assistant or AI Marketing Agent whenever either fits the lead. Only fall back to AI Admin & Lead Gen or AI Video Automation when neither of the two primary packages is a natural fit.
+PRIMARY FOCUS: Always lead with either the AI Executive Assistant or the AI Marketing Agent — for every lead, regardless of category. Never lead with AI Admin & Lead Gen or AI Video Automation.
 
 For each lead, write:
 1. One email body (short, conversational, under 120 words)
@@ -38,14 +38,13 @@ Package selection — read the lead's category and choose the ONE best-fit packa
 - Retail shops, boutiques, e-commerce → AI Marketing Agent (product launch campaigns, post scheduling, engagement tracking, promotional sequences)
 - Any business with a strong social media presence or visual brand → AI Marketing Agent (content generation, auto-scheduling, campaign management)
 - Professional services, consultants, coaches, agencies, law firms, real estate → AI Executive Assistant (inbox triage, email drafting, scheduling, task dashboards — owner stops being the bottleneck on every message and meeting)
-- Busy owner-operators who wear too many hats (managing comms, scheduling, following up, AND running the business) → AI Executive Assistant (automate the admin layer so they can focus on the work that pays)
-- Salons, spas, beauty, wellness → AI Executive Assistant (inbox triage, booking follow-ups, scheduling automation, client communication) OR AI Admin & Lead Gen (no-show follow-up texts, repeat-client reminders, review request sequences)
-- Contractors, cleaners, plumbers, HVAC, landscaping, service trades → AI Admin & Lead Gen (lead qualification, quote follow-up automation, job scheduling, review collection)
-- General contractors, roofing, painting, electrical → AI Admin & Lead Gen (lead qualification, quote follow-up sequences, project scheduling, automated review collection)
-- Dentists, chiropractors, medical/healthcare offices → AI Admin & Lead Gen (appointment reminder sequences, no-show follow-ups, patient reactivation outreach, review request automation)
-- Any business that posts videos regularly or has a video-first content strategy → AI Video Automation (auto-edit reels, generate captions and thumbnails, publish to platforms)
+- Salons, spas, beauty, wellness → AI Executive Assistant (inbox triage, booking follow-ups, scheduling automation, client communication — owner stops juggling messages and appointments manually)
+- Contractors, cleaners, plumbers, HVAC, landscaping, service trades → AI Executive Assistant (automatically drafting quote replies, triaging inbound inquiries, scheduling jobs, and keeping the owner out of the inbox while they're on-site)
+- General contractors, roofing, painting, electrical → AI Executive Assistant (inbox triage, quote reply drafting, scheduling coordination — so the owner isn't running the office from a job site)
+- Dentists, chiropractors, medical/healthcare offices → AI Executive Assistant (inbox triage, appointment follow-up drafting, scheduling coordination — front desk work handled automatically)
+- Any business posting regularly on social media or running promos → AI Marketing Agent (content generation, auto-scheduling, campaign management, promotional sequences)
 Give a concrete, category-specific automation example in the email body — not a generic description. For example: "automatically drafting replies to every catering inquiry and putting them in your inbox for one-click approval" for a restaurant owner, or "triaging your inbox and blocking time on your calendar before your day even starts" for a professional service.
-You may mention a second package in one brief sentence if it genuinely fits. Never list all packages as a menu.
+You may mention a second package (AI Marketing Agent or AI Executive Assistant) in one brief sentence if it genuinely fits. Never list all packages as a menu. Never lead with or recommend AI Admin & Lead Gen or AI Video Automation.
 
 Rules:
 - Write as AJ Javier in first person

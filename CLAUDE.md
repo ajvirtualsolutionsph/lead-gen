@@ -26,13 +26,14 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 - Added `--yes` flag to `draft_agent.py` and `send_emails.py` to skip all interactive prompts
 - Drafted 8 landscaping leads via "draft email" chat trigger (M&D Lawn, Outdoor Solutions, Apex Lawnco, EcoLandscapes, Big Heart, Steve & Brother, Charles & Son, Terra Landscaping)
 - Sent 8 initial emails via "send initial email" chat trigger — no terminal used
+- Updated `draft_agent.py` system prompt: all categories now pitch AI Executive Assistant or AI Marketing Agent only — AI Admin & Lead Gen and AI Video Automation removed as lead packages for all business types
 
 ### 🔲 Next Session
 
 - Add new leads to Google Sheets
 - Type "draft email" to draft them
 - Type "send initial email" to send — no terminal needed
-- In ~5 days, type "send follow up" for the 16 leads now in Initial Email Sent
+- In ~5 days (around May 11), type "send follow up" for the 16 leads in Initial Email Sent
 
 ---
 
