@@ -6,17 +6,15 @@ Run this sequence in order, without asking:
 
 1. **Update CLAUDE.md** — Replace `### ✅ Done` with 3–5 bullets from this session only. Replace `### 🔲 Next Session` with 2–3 bullets for what's next. Keep both sections short.
 2. **Update memory file** — Rewrite `memory/project_lead_gen_status.md` with current pipeline state, last actions taken, and next priorities.
-3. **Commit + push** — Stage all changed files, commit with a clear message describing what was done, and push to `origin/main`.
+3. **Commit + push** — Stage all changed files, commit with a message starting with today's date in `YYYY-MM-DD:` format (e.g. `2026-05-07: add follow-up logic`), then push to `origin/main`.
 4. **Chat report** — Reply with a summary covering: what files were updated, total leads across all tabs, what was committed, and what the next priority is.
 
 This is the end-of-session save trigger. Execute all four steps every time "123" is typed.
 
 ### ✅ Done
 
-- Drafted and sent 5 initial emails (CC Paving, Ricky's Home & Lawn, Sollecito Landscaping, Ballantyne Gardens, Franciscos Landscaping)
-- Added `operating_hours` column between `email` and `rating` across all 4 tabs
-- Fixed `sheets.py` and `organize_sheets.py` to preserve extra columns (`call_status`, `last_called`, `dialer_notes`) on every run
-- Fixed column reorder bug — all tabs now show `operating_hours` in correct position
+- Changed commit message format from "Session N:" to date-based `YYYY-MM-DD:` prefix
+- Updated CLAUDE.md step 3 in the 123 workflow to enforce date format
 
 ### 🔲 Next Session
 
