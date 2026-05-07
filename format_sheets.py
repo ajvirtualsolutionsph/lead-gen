@@ -12,6 +12,7 @@ COLUMN_WIDTHS = {
     "phone": 110,
     "website": 150,
     "email": 170,
+    "operating_hours": 180,
     "rating": 70,
     "review_count": 70,
     "notes": 140,

@@ -4,37 +4,24 @@
 
 Run this sequence in order, without asking:
 
-1. **Update CLAUDE.md** — Rewrite the `### ✅ Done` and `### 🔲 Next Session` sections based on what was accomplished this session.
+1. **Update CLAUDE.md** — Replace `### ✅ Done` with 3–5 bullets from this session only. Replace `### 🔲 Next Session` with 2–3 bullets for what's next. Keep both sections short.
 2. **Update memory file** — Rewrite `memory/project_lead_gen_status.md` with current pipeline state, last actions taken, and next priorities.
 3. **Commit + push** — Stage all changed files, commit with a clear message describing what was done, and push to `origin/main`.
-4. **Chat report** — Reply with a summary covering: what files were updated, what was committed, and what the next priority is.
+4. **Chat report** — Reply with a summary covering: what files were updated, total leads across all tabs, what was committed, and what the next priority is.
 
 This is the end-of-session save trigger. Execute all four steps every time "123" is typed.
 
 ### ✅ Done
 
-- Set up 123 end-of-session save workflow in CLAUDE.md
-- Initialized git repo, connected to GitHub remote, made initial commit
-- Re-authenticated Google OAuth (deleted expired `gmail_token.json`)
-- Drafted emails for 3 new leads (Just In Time Plumbing, The Smile Center, Dentistry of Virginia Beach)
-- Sent 4 initial emails (Olivia, Just In Time Plumbing, The Smile Center, Dentistry of Virginia Beach)
-- Updated `draft_agent.py` system prompt (pricing, AI Executive Assistant priority, routing rules, retainer)
-- Fixed `sheets.py` blank-header crash; fixed `status_report.py` false action prompts
-- Drafted 4 new leads: NU Image Detail, Wings Mobile Detailing, Fusion Heating, Pride Mechanical
-- 12 aging leads auto-moved to No Reply/Declined (59 total now)
-- Added chat trigger commands: "draft email", "send initial email", "send follow up" — bypass terminal entirely
-- Added `--yes` flag to `draft_agent.py` and `send_emails.py` to skip all interactive prompts
-- Drafted 8 landscaping leads via "draft email" chat trigger (M&D Lawn, Outdoor Solutions, Apex Lawnco, EcoLandscapes, Big Heart, Steve & Brother, Charles & Son, Terra Landscaping)
-- Sent 8 initial emails via "send initial email" chat trigger — no terminal used
-- Updated `draft_agent.py` system prompt: all categories now pitch AI Executive Assistant or AI Marketing Agent only — AI Admin & Lead Gen and AI Video Automation removed as lead packages for all business types
-- Updated `draft_agent.py` system prompt: added VA job posting hook (reference responsibilities listed in posting, frame as advanced automated service); pricing line now names both AI Executive Assistant and AI Marketing Agent together
+- Drafted and sent 5 initial emails (CC Paving, Ricky's Home & Lawn, Sollecito Landscaping, Ballantyne Gardens, Franciscos Landscaping)
+- Added `operating_hours` column between `email` and `rating` across all 4 tabs
+- Fixed `sheets.py` and `organize_sheets.py` to preserve extra columns (`call_status`, `last_called`, `dialer_notes`) on every run
+- Fixed column reorder bug — all tabs now show `operating_hours` in correct position
 
 ### 🔲 Next Session
 
-- Add new leads to Google Sheets (prioritize businesses with active VA job postings for the new hook)
-- Type "draft email" to draft them
-- Type "send initial email" to send — no terminal needed
-- Around May 11, type "send follow up" for the 16 leads in Initial Email Sent
+- Add new leads; type "draft email" then "send initial email"
+- Around May 11–12, type "send follow up" for the 21 leads in Initial Email Sent
 
 ---
 

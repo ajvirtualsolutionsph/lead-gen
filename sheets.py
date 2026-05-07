@@ -23,7 +23,7 @@ SCOPES = [
 
 LEADS_FIELDNAMES = [
     "name", "business_name", "category", "address", "phone", "website", "email",
-    "rating", "review_count", "notes", "details",
+    "operating_hours", "rating", "review_count", "notes", "details",
     "subject", "email_body", "followup",
     "date_drafted", "sent", "followup_sent", "status", "thread_id", "message_id",
 ]
@@ -78,14 +78,21 @@ def get_worksheet(tab_name):
         ws = spreadsheet.worksheet(tab_name)
     except gspread.exceptions.WorksheetNotFound:
         ws = spreadsheet.add_worksheet(title=tab_name, rows=1000, cols=len(LEADS_FIELDNAMES))
-    if ws.row_count == 0 or not ws.row_values(1):
+    current_headers = ws.row_values(1)
+    if not current_headers:
         ws.append_row(LEADS_FIELDNAMES)
+    else:
+        missing = [col for col in LEADS_FIELDNAMES if col not in current_headers]
+        if missing:
+            new_headers = current_headers + missing
+            ws.update([new_headers], range_name="1:1", value_input_option="RAW")
     return ws
 
 
 def read_rows(tab_name=TAB_NEW_LEADS):
     ws = get_worksheet(tab_name)
-    records = ws.get_all_records(default_blank="", expected_headers=LEADS_FIELDNAMES)
+    actual_headers = ws.row_values(1)
+    records = ws.get_all_records(default_blank="", expected_headers=actual_headers)
     for row in records:
         row.pop("aging_days", None)
         for col in LEADS_FIELDNAMES:
@@ -117,7 +124,8 @@ def read_all_rows():
     for tab in ALL_TABS:
         try:
             ws = spreadsheet.worksheet(tab)
-            records = ws.get_all_records(default_blank="", expected_headers=LEADS_FIELDNAMES)
+            actual_headers = ws.row_values(1)
+            records = ws.get_all_records(default_blank="", expected_headers=actual_headers)
             for row in records:
                 row.pop("aging_days", None)
                 for col in LEADS_FIELDNAMES:

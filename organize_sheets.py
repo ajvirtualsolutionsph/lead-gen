@@ -51,10 +51,14 @@ def write_tab_with_aging(spreadsheet, tab_name, rows):
     except gspread.exceptions.WorksheetNotFound:
         ws = spreadsheet.add_worksheet(title=tab_name, rows=1000, cols=len(FIELDNAMES_WITH_AGING))
 
+    existing_headers = ws.row_values(1)
+    extra_cols = [h for h in existing_headers if h not in FIELDNAMES_WITH_AGING]
+    all_cols = FIELDNAMES_WITH_AGING + extra_cols
+
     rows_with_aging = [add_aging(dict(r)) for r in rows]
-    data = [FIELDNAMES_WITH_AGING]
+    data = [all_cols]
     for row in rows_with_aging:
-        data.append([row.get(col, "") for col in FIELDNAMES_WITH_AGING])
+        data.append([row.get(col, "") for col in all_cols])
     ws.clear()
     ws.update(data, value_input_option="RAW")
     return len(rows)
