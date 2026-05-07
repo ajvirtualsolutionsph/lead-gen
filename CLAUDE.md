@@ -27,13 +27,14 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 - Drafted 8 landscaping leads via "draft email" chat trigger (M&D Lawn, Outdoor Solutions, Apex Lawnco, EcoLandscapes, Big Heart, Steve & Brother, Charles & Son, Terra Landscaping)
 - Sent 8 initial emails via "send initial email" chat trigger — no terminal used
 - Updated `draft_agent.py` system prompt: all categories now pitch AI Executive Assistant or AI Marketing Agent only — AI Admin & Lead Gen and AI Video Automation removed as lead packages for all business types
+- Updated `draft_agent.py` system prompt: added VA job posting hook (reference responsibilities listed in posting, frame as advanced automated service); pricing line now names both AI Executive Assistant and AI Marketing Agent together
 
 ### 🔲 Next Session
 
-- Add new leads to Google Sheets
+- Add new leads to Google Sheets (prioritize businesses with active VA job postings for the new hook)
 - Type "draft email" to draft them
 - Type "send initial email" to send — no terminal needed
-- In ~5 days (around May 11), type "send follow up" for the 16 leads in Initial Email Sent
+- Around May 11, type "send follow up" for the 16 leads in Initial Email Sent
 
 ---
 
