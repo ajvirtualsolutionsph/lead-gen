@@ -13,13 +13,16 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 
 ### ✅ Done
 
-- Changed commit message format from "Session N:" to date-based `YYYY-MM-DD:` prefix
-- Updated CLAUDE.md step 3 in the 123 workflow to enforce date format
+- Re-authenticated Gmail/Google OAuth (token had expired)
+- Drafted initial emails for 20 new leads via `draft email`
+- Sent initial emails to 20 leads — Initial Email Sent tab now at 25
+- Sent follow-ups to 16 leads in Needs Follow Up tab
+- Total pipeline now at 100 leads
 
 ### 🔲 Next Session
 
-- Add new leads; type "draft email" then "send initial email"
-- Around May 11–12, type "send follow up" for the 21 leads in Initial Email Sent
+- Around May 16–17, type "send follow up" for the 25 leads in Initial Email Sent
+- Add new leads and type "draft email" then "send initial email"
 
 ---
 
