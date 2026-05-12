@@ -13,16 +13,16 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 
 ### ✅ Done
 
-- Re-authenticated Gmail/Google OAuth (token had expired)
-- Drafted initial emails for 20 new leads via `draft email`
-- Sent initial emails to 20 leads — Initial Email Sent tab now at 25
-- Sent follow-ups to 16 leads in Needs Follow Up tab
-- Total pipeline now at 100 leads
+- Adopted Haiku-style email format in `draft_agent.py` system prompt
+- Added loss-framing line + bullet list of category-specific tasks after opener
+- Changed package branding to "AI Executive Assistant + Marketing Agent" combined
+- Added 3-part CTA block: invite → Calendly link → "Book a 30-min demo" line
+- Bumped word limit to 180 and MAX_TOKENS to 1200
 
 ### 🔲 Next Session
 
+- Run `draft email` to test new email style on next batch of leads
 - Around May 16–17, type "send follow up" for the 25 leads in Initial Email Sent
-- Add new leads and type "draft email" then "send initial email"
 
 ---
 
