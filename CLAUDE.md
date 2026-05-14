@@ -13,16 +13,17 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 
 ### ✅ Done
 
-- Ran full project audit — identified 5 issues across all scripts
-- Fixed `gspread.authorize()` → `gspread.Client(auth=creds)` in `sheets.py` (deprecation fix)
-- Added 1-second pauses between API phases in `organize_sheets.py` to prevent 429 quota errors
-- Wired `email_finder.py` into `draft_agent.py` to auto-crawl missing emails before drafting
+- Sent follow-up emails to all 3+ day old leads in Initial Email Sent (bypassing normal 5-day rule)
+- Moved all 25 leads from Needs Follow Up → Ready for Call
+- Renamed "No Reply/Declined" tab → "Ready for Call" permanently in sheet and code
+- Updated `sheets.py` constant: `TAB_NO_REPLY = "Ready for Call"`
+- Created `session_override.py` for future one-off pipeline bypass runs
 
 ### 🔲 Next Session
 
-- Import new leads — pipeline is empty (0 in New Leads)
+- Import new leads — New Leads tab is empty (0 leads)
 - Type `draft email` once new leads are added
-- Around May 16, run `python organize_sheets.py` to archive the 5 aging follow-ups to No Reply
+- Pipeline now has 100 leads total: 10 Initial Email Sent, 0 Needs Follow Up, 100 Ready for Call
 
 ---
 
@@ -74,9 +75,9 @@ Full lifecycle: **add leads → draft → send initial → 5 days → follow-up 
 | **New Leads** | `sent` is empty |
 | **Initial Email Sent** | `sent` filled, no other tab applies |
 | **Needs Follow Up** | `sent` filled, 5+ days old, follow-up drafted, `followup_sent` empty |
-| **No Reply/Declined** | `followup_sent` filled, 2+ days passed |
+| **Ready for Call** | `followup_sent` filled, 2+ days passed |
 
-Priority order: No Reply/Declined → Needs Follow Up → Initial Email Sent → New Leads.
+Priority order: Ready for Call → Needs Follow Up → Initial Email Sent → New Leads.
 
 Sheet: https://docs.google.com/spreadsheets/d/1Zq7muXisE8QywVGXtRE6OqyDRl84UKWy37HoorjxO3s
 
