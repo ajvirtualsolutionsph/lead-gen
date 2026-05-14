@@ -58,7 +58,7 @@ def get_creds():
 
 def _get_spreadsheet():
     creds = get_creds()
-    gc = gspread.authorize(creds)
+    gc = gspread.Client(auth=creds)
     sheet_id = os.getenv("GOOGLE_SHEET_ID", "").strip()
     if sheet_id:
         return gc.open_by_key(sheet_id)

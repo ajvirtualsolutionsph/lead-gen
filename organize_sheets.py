@@ -1,4 +1,5 @@
 import os
+import time
 from datetime import datetime, date
 
 import gspread
@@ -81,6 +82,7 @@ def main():
     ]
     if to_no_reply:
         move_rows_between_tabs(to_no_reply, TAB_NEEDS_FOLLOWUP, TAB_NO_REPLY)
+    time.sleep(1)
 
     # --- Move rows from Initial Email Sent → Needs Follow Up ---
     initial_rows = read_rows(TAB_INITIAL_SENT)
@@ -94,6 +96,7 @@ def main():
     ]
     if to_followup:
         move_rows_between_tabs(to_followup, TAB_INITIAL_SENT, TAB_NEEDS_FOLLOWUP)
+    time.sleep(1)
 
     # --- Move rows from New Leads → Initial Email Sent ---
     new_rows = read_rows(TAB_NEW_LEADS)
@@ -117,6 +120,7 @@ def main():
             move_rows_between_tabs(go_to_initial, TAB_NEW_LEADS, TAB_INITIAL_SENT)
         if directly_to_followup:
             move_rows_between_tabs(directly_to_followup, TAB_NEW_LEADS, TAB_NEEDS_FOLLOWUP)
+    time.sleep(1)
 
     # --- Refresh aging_days display on static tabs (in-place rewrite) ---
     for tab_name in [TAB_INITIAL_SENT, TAB_NEEDS_FOLLOWUP, TAB_NO_REPLY]:

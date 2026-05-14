@@ -13,16 +13,16 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 
 ### ✅ Done
 
-- Adopted Haiku-style email format in `draft_agent.py` system prompt
-- Added loss-framing line + bullet list of category-specific tasks after opener
-- Changed package branding to "AI Executive Assistant + Marketing Agent" combined
-- Added 3-part CTA block: invite → Calendly link → "Book a 30-min demo" line
-- Bumped word limit to 180 and MAX_TOKENS to 1200
+- Ran full project audit — identified 5 issues across all scripts
+- Fixed `gspread.authorize()` → `gspread.Client(auth=creds)` in `sheets.py` (deprecation fix)
+- Added 1-second pauses between API phases in `organize_sheets.py` to prevent 429 quota errors
+- Wired `email_finder.py` into `draft_agent.py` to auto-crawl missing emails before drafting
 
 ### 🔲 Next Session
 
-- Run `draft email` to test new email style on next batch of leads
-- Around May 16–17, type "send follow up" for the 25 leads in Initial Email Sent
+- Import new leads — pipeline is empty (0 in New Leads)
+- Type `draft email` once new leads are added
+- Around May 16, run `python organize_sheets.py` to archive the 5 aging follow-ups to No Reply
 
 ---
 

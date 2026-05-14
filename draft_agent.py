@@ -148,6 +148,19 @@ def run(yes=False):
         print("Nothing to do.")
         return
 
+    # Auto-fill missing emails from website before drafting
+    from email_finder import find_email_for_site
+    for row in pending:
+        if not row.get("email", "").strip() and row.get("website", "").strip():
+            print(f"  Looking up email for {row.get('business_name', '?')}...")
+            found = find_email_for_site(row["website"])
+            if found:
+                row["email"] = found
+                print(f"    Found: {found}")
+            else:
+                print(f"    Not found — will draft anyway.")
+    print()
+
     try:
         for i, row in enumerate(pending, 1):
             name = row.get("name", "?")
