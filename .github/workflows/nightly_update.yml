@@ -1,0 +1,35 @@
+name: Nightly Pipeline Update
+
+on:
+  schedule:
+    - cron: "0 16 * * *"   # midnight Philippines time (UTC+8 = 16:00 UTC)
+  workflow_dispatch:         # allows manual trigger from GitHub UI
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Write credentials from secrets
+        env:
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+        run: |
+          echo "GOOGLE_SHEET_ID=${GOOGLE_SHEET_ID}" > .env
+          echo "GMAIL_ADDRESS=${GMAIL_ADDRESS}" >> .env
+          echo '${{ secrets.GMAIL_CREDENTIALS_JSON }}' > gmail_credentials.json
+          echo '${{ secrets.GMAIL_TOKEN_JSON }}' > gmail_token.json
+
+      - name: Run nightly pipeline update
+        run: python organize_sheets.py
