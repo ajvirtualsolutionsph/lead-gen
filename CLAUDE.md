@@ -13,16 +13,17 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 
 ### ✅ Done
 
-- Updated `format_sheets.py` to use dark charcoal header (`#3C4043`) with white bold text
-- Added alternating row banding across all 4 tabs via Sheets API `addBanding`
-- Iterated row colors to subtle cool gray (`#E8E9EA`) alternating with white — black text preserved
-- Added banding deduplication logic to prevent duplicate bands on re-runs
+- Added 5-stage status lifecycle: Drafted → Initial Sent → Needs Follow-up → Follow-up Sent → Completed
+- Removed unused `message_id` column from sheets, send_emails, and format_sheets
+- Patched all 110 existing leads with correct status values based on their send state
+- Set up GitHub Actions nightly workflow (`nightly_update.yml`) — runs midnight PHT, PC-independent
+- Verified nightly run succeeded on first manual trigger (32s, green ✅)
 
 ### 🔲 Next Session
 
 - Import new leads — New Leads tab is still empty (0 leads)
 - Type `draft email` once new leads are added
-- Run `python format_sheets.py` anytime to re-apply formatting after sheet changes
+- Nightly automation is live — no manual organize needed unless running mid-day
 
 ---
 

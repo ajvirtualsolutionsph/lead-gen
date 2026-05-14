@@ -141,7 +141,7 @@ def run(yes=False):
 
     rows = read_rows(TAB_NEW_LEADS)
 
-    pending = [r for r in rows if r.get("status", "").strip() != "drafted"]
+    pending = [r for r in rows if r.get("status", "").strip() != "Drafted"]
     print(f"{len(pending)} leads to process, {len(rows) - len(pending)} already drafted.")
 
     if not pending:
@@ -192,7 +192,7 @@ def run(yes=False):
 
                 row.update(parsed)
                 row["date_drafted"] = date.today().isoformat()
-                row["status"] = "drafted"
+                row["status"] = "Drafted"
 
                 cache_read = response.usage.cache_read_input_tokens
                 print(f"    Done. Cache read tokens: {cache_read}")
@@ -216,7 +216,7 @@ def run(yes=False):
     finally:
         write_rows(rows, TAB_NEW_LEADS)
 
-    drafted = sum(1 for r in rows if r.get("status") == "drafted")
+    drafted = sum(1 for r in rows if r.get("status") == "Drafted")
     print(f"\nDone. {drafted}/{len(rows)} leads drafted. Saved to Google Sheets.")
 
     if not _yes:

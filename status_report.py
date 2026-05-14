@@ -17,10 +17,10 @@ def main():
         print(f"Error reading pipeline data: {e}")
         sys.exit(1)
 
-    undrafted = [r for r in new_leads if r.get("status", "").strip() != "drafted"]
+    undrafted = [r for r in new_leads if r.get("status", "").strip() != "Drafted"]
     drafted_not_sent = [
         r for r in new_leads
-        if r.get("status", "").strip() == "drafted"
+        if r.get("status", "").strip() == "Drafted"
         and r.get("sent", "").strip() == ""
     ]
     aging_soon = [

@@ -70,27 +70,15 @@ def create_message(to, subject, body_html):
     return {"raw": raw}
 
 
-def get_message_id_header(service, msg_id):
-    msg = service.users().messages().get(
-        userId="me", id=msg_id, format="metadata", metadataHeaders=["Message-ID"]
-    ).execute()
-    for h in msg["payload"]["headers"]:
-        if h["name"] == "Message-ID":
-            return h["value"]
-    return ""
-
-
 def send_message(service, message):
     result = service.users().messages().send(userId="me", body=message).execute()
     return result
 
 
-def create_reply_message(to, subject, body_html, thread_id, in_reply_to):
+def create_reply_message(to, subject, body_html, thread_id):
     msg = MIMEText(body_html, "html")
     msg["to"] = to
     msg["subject"] = "Re: " + subject
-    msg["In-Reply-To"] = in_reply_to
-    msg["References"] = in_reply_to
     raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
     return {"raw": raw, "threadId": thread_id}
 
@@ -98,7 +86,7 @@ def create_reply_message(to, subject, body_html, thread_id, in_reply_to):
 def send_batch(rows, fieldnames, service, signature_html, subject_col, body_col, sent_col, label, yes=False):
     pending = [
         r for r in rows
-        if r.get("status", "").strip() == "drafted"
+        if r.get("status", "").strip() == "Drafted"
         and r.get(subject_col, "").strip()
         and not r.get(sent_col, "").strip()
     ]
@@ -177,20 +165,17 @@ def send_batch(rows, fieldnames, service, signature_html, subject_col, body_col,
 
         try:
             thread_id = row.get("thread_id", "").strip()
-            in_reply_to = row.get("message_id", "").strip()
             if sent_col == "followup_sent" and thread_id:
-                msg = create_reply_message(to_email, subject, html_body, thread_id, in_reply_to)
+                msg = create_reply_message(to_email, subject, html_body, thread_id)
             else:
                 msg = create_message(to_email, subject, html_body)
             result = send_message(service, msg)
             row[sent_col] = datetime.now().strftime("%Y-%m-%d %H:%M")
             if sent_col == "sent":
                 row["thread_id"] = result.get("threadId", "")
-                try:
-                    row["message_id"] = get_message_id_header(service, result["id"])
-                except Exception as e:
-                    print(f"  [!] Sent but failed to fetch Message-ID for {name}: {e}")
-                    row["message_id"] = ""
+                row["status"] = "Initial Sent"
+            elif sent_col == "followup_sent":
+                row["status"] = "Follow-up Sent"
             sent_count += 1
             print(f"  Sent: {name} <{to_email}>")
         except Exception as e:
@@ -226,7 +211,7 @@ def run(mode="both", yes=False):
             print("No leads found in New Leads tab.")
         else:
             fieldnames = list(rows[0].keys())
-            for col in ("sent", "followup_sent", "thread_id", "message_id"):
+            for col in ("sent", "followup_sent", "thread_id"):
                 if col not in fieldnames:
                     fieldnames.append(col)
                     for row in rows:
@@ -257,7 +242,7 @@ def run(mode="both", yes=False):
 
         if followup_rows:
             fieldnames_fu = list(followup_rows[0].keys())
-            for col in ("sent", "followup_sent", "thread_id", "message_id"):
+            for col in ("sent", "followup_sent", "thread_id"):
                 if col not in fieldnames_fu:
                     fieldnames_fu.append(col)
                     for row in followup_rows:

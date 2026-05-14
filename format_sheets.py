@@ -25,7 +25,6 @@ COLUMN_WIDTHS = {
     "followup_sent": 120,
     "status": 90,
     "thread_id": 100,
-    "message_id": 100,
     "aging_days": 80,
 }
 

@@ -25,7 +25,7 @@ LEADS_FIELDNAMES = [
     "name", "business_name", "category", "address", "phone", "website", "email",
     "operating_hours", "rating", "review_count", "notes", "details",
     "subject", "email_body", "followup",
-    "date_drafted", "sent", "followup_sent", "status", "thread_id", "message_id",
+    "date_drafted", "sent", "followup_sent", "status", "thread_id",
 ]
 
 TAB_NEW_LEADS = "New Leads"

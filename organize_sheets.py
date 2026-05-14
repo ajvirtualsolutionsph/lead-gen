@@ -81,6 +81,8 @@ def main():
         and days_since(r["followup_sent"]) >= NOREPLY_AGE_DAYS
     ]
     if to_no_reply:
+        for r in to_no_reply:
+            r["status"] = "Completed"
         move_rows_between_tabs(to_no_reply, TAB_NEEDS_FOLLOWUP, TAB_NO_REPLY)
     time.sleep(1)
 
@@ -95,6 +97,8 @@ def main():
         and days_since(r["sent"]) >= FOLLOWUP_AGE_DAYS
     ]
     if to_followup:
+        for r in to_followup:
+            r["status"] = "Needs Follow-up"
         move_rows_between_tabs(to_followup, TAB_INITIAL_SENT, TAB_NEEDS_FOLLOWUP)
     time.sleep(1)
 
@@ -117,8 +121,12 @@ def main():
         go_to_initial = [r for r in to_initial if lead_key(r) not in directly_to_followup_keys]
 
         if go_to_initial:
+            for r in go_to_initial:
+                r["status"] = "Initial Sent"
             move_rows_between_tabs(go_to_initial, TAB_NEW_LEADS, TAB_INITIAL_SENT)
         if directly_to_followup:
+            for r in directly_to_followup:
+                r["status"] = "Needs Follow-up"
             move_rows_between_tabs(directly_to_followup, TAB_NEW_LEADS, TAB_NEEDS_FOLLOWUP)
     time.sleep(1)
 
