@@ -29,8 +29,11 @@ COLUMN_WIDTHS = {
     "aging_days": 80,
 }
 
-HEADER_BG = {"red": 0.909, "green": 0.918, "blue": 0.929}  # #E8EAED
-FONT_SIZE = 10
+HEADER_BG  = {"red": 0.235, "green": 0.251, "blue": 0.263}  # #3C4043 dark charcoal
+HEADER_FG  = {"red": 1.0,   "green": 1.0,   "blue": 1.0  }  # white text
+ROW_ODD    = {"red": 1.0,   "green": 1.0,   "blue": 1.0  }  # #FFFFFF white
+ROW_EVEN   = {"red": 0.910, "green": 0.914, "blue": 0.918}  # #E8E9EA subtle cool gray
+FONT_SIZE  = 10
 ROW_HEIGHT = 21
 HEADER_HEIGHT = 24
 
@@ -110,7 +113,7 @@ def _cell_format_requests(sheet_id, num_rows, num_cols):
         }
     })
 
-    # Header row: bold + background color
+    # Header row: bold + dark background + white text
     requests.append({
         "repeatCell": {
             "range": {
@@ -122,7 +125,12 @@ def _cell_format_requests(sheet_id, num_rows, num_cols):
             },
             "cell": {
                 "userEnteredFormat": {
-                    "textFormat": {"fontFamily": "Arial", "fontSize": FONT_SIZE, "bold": True},
+                    "textFormat": {
+                        "fontFamily": "Arial",
+                        "fontSize": FONT_SIZE,
+                        "bold": True,
+                        "foregroundColor": HEADER_FG,
+                    },
                     "backgroundColor": HEADER_BG,
                     "wrapStrategy": "CLIP",
                     "verticalAlignment": "MIDDLE",
@@ -143,6 +151,43 @@ def _cell_format_requests(sheet_id, num_rows, num_cols):
         }
     })
 
+    return requests
+
+
+def _banding_requests(sheet_id, num_cols, spreadsheet):
+    requests = []
+
+    # Remove any existing banded ranges on this sheet to avoid duplicates
+    try:
+        meta = spreadsheet.client.request(
+            "GET",
+            f"https://sheets.googleapis.com/v4/spreadsheets/{spreadsheet.id}",
+            params={"fields": "sheets(properties/sheetId,bandedRanges/bandedRangeId)"},
+        ).json()
+        for sheet in meta.get("sheets", []):
+            if sheet["properties"]["sheetId"] == sheet_id:
+                for br in sheet.get("bandedRanges", []):
+                    requests.append({"deleteBanding": {"bandedRangeId": br["bandedRangeId"]}})
+    except Exception:
+        pass
+
+    # Add alternating row banding starting from row 2 (index 1), after the header
+    requests.append({
+        "addBanding": {
+            "bandedRange": {
+                "range": {
+                    "sheetId": sheet_id,
+                    "startRowIndex": 1,
+                    "startColumnIndex": 0,
+                    "endColumnIndex": num_cols,
+                },
+                "rowProperties": {
+                    "firstBandColor":  ROW_ODD,
+                    "secondBandColor": ROW_EVEN,
+                },
+            }
+        }
+    })
     return requests
 
 
@@ -171,6 +216,7 @@ def format_all_tabs(spreadsheet=None):
             _col_width_requests(sheet_id, headers)
             + _row_height_requests(sheet_id, num_rows)
             + _cell_format_requests(sheet_id, num_rows, num_cols)
+            + _banding_requests(sheet_id, num_cols, spreadsheet)
         )
 
         spreadsheet.batch_update({"requests": requests})

@@ -13,17 +13,16 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 
 ### ✅ Done
 
-- Sent follow-up emails to all 3+ day old leads in Initial Email Sent (bypassing normal 5-day rule)
-- Moved all 25 leads from Needs Follow Up → Ready for Call
-- Renamed "No Reply/Declined" tab → "Ready for Call" permanently in sheet and code
-- Updated `sheets.py` constant: `TAB_NO_REPLY = "Ready for Call"`
-- Created `session_override.py` for future one-off pipeline bypass runs
+- Updated `format_sheets.py` to use dark charcoal header (`#3C4043`) with white bold text
+- Added alternating row banding across all 4 tabs via Sheets API `addBanding`
+- Iterated row colors to subtle cool gray (`#E8E9EA`) alternating with white — black text preserved
+- Added banding deduplication logic to prevent duplicate bands on re-runs
 
 ### 🔲 Next Session
 
-- Import new leads — New Leads tab is empty (0 leads)
+- Import new leads — New Leads tab is still empty (0 leads)
 - Type `draft email` once new leads are added
-- Pipeline now has 100 leads total: 10 Initial Email Sent, 0 Needs Follow Up, 100 Ready for Call
+- Run `python format_sheets.py` anytime to re-apply formatting after sheet changes
 
 ---
 
