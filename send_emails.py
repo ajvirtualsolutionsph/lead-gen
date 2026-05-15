@@ -84,9 +84,10 @@ def create_reply_message(to, subject, body_html, thread_id):
 
 
 def send_batch(rows, fieldnames, service, signature_html, subject_col, body_col, sent_col, label, yes=False):
+    expected_status = "Needs Follow-up" if sent_col == "followup_sent" else "Drafted"
     pending = [
         r for r in rows
-        if r.get("status", "").strip() == "Drafted"
+        if r.get("status", "").strip() == expected_status
         and r.get(subject_col, "").strip()
         and not r.get(sent_col, "").strip()
     ]

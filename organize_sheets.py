@@ -14,7 +14,7 @@ from format_sheets import format_all_tabs
 
 load_dotenv()
 
-FOLLOWUP_AGE_DAYS = 5
+FOLLOWUP_AGE_DAYS = 2
 NOREPLY_AGE_DAYS = 2
 FIELDNAMES_WITH_AGING = LEADS_FIELDNAMES + ["aging_days"]
 

@@ -13,17 +13,17 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 
 ### ✅ Done
 
-- Added 5-stage status lifecycle: Drafted → Initial Sent → Needs Follow-up → Follow-up Sent → Completed
-- Removed unused `message_id` column from sheets, send_emails, and format_sheets
-- Patched all 110 existing leads with correct status values based on their send state
-- Set up GitHub Actions nightly workflow (`nightly_update.yml`) — runs midnight PHT, PC-independent
-- Verified nightly run succeeded on first manual trigger (32s, green ✅)
+- Changed follow-up threshold from 5 days → 2 days in `organize_sheets.py`
+- Added auto-preview of all drafted emails after `draft email` completes (CLAUDE.md + memory)
+- Fixed bug in `send_emails.py` — follow-up sends were blocked by wrong status filter (`Drafted` instead of `Needs Follow-up`)
+- Drafted + sent 10 initial emails (restaurants + trades in Springfield/Aurora)
+- Sent 10 follow-up emails to existing plumbing leads
 
 ### 🔲 Next Session
 
-- Import new leads — New Leads tab is still empty (0 leads)
-- Type `draft email` once new leads are added
-- Nightly automation is live — no manual organize needed unless running mid-day
+- 10 initial emails (sent today) → follow-up ready in 2 days
+- 10 follow-up leads → move to Ready for Call in 2 days via nightly automation
+- Import new leads when ready, then `draft email`
 
 ---
 
@@ -36,6 +36,14 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 | "send follow up" | `python send_emails.py --followup --yes` |
 
 When the user types any of these phrases, run the corresponding command via Bash, show full output, and report results.
+
+**After `draft email` completes**, always display all drafted emails in full, one by one, formatted as:
+- Business name + email address as a header
+- Subject line labeled `**Subject:**`
+- Full email body
+- Separator line between each lead
+
+Do not ask before showing — show automatically. End with "Type `send initial email` to send all X."
 
 ---
 
@@ -68,13 +76,13 @@ pip install -r requirements.txt
 
 ## Pipeline
 
-Full lifecycle: **add leads → draft → send initial → 5 days → follow-up → 2 days → no reply**
+Full lifecycle: **add leads → draft → send initial → 2 days → follow-up → 2 days → ready for call**
 
 | Tab | Rule |
 |---|---|
 | **New Leads** | `sent` is empty |
 | **Initial Email Sent** | `sent` filled, no other tab applies |
-| **Needs Follow Up** | `sent` filled, 5+ days old, follow-up drafted, `followup_sent` empty |
+| **Needs Follow Up** | `sent` filled, 2+ days old, follow-up drafted, `followup_sent` empty |
 | **Ready for Call** | `followup_sent` filled, 2+ days passed |
 
 Priority order: Ready for Call → Needs Follow Up → Initial Email Sent → New Leads.
