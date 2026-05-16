@@ -13,16 +13,15 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 
 ### ✅ Done
 
-- Recovered all 20 Initial Email Sent rows lost to a tab-wipe bug (pulled thread IDs from Gmail, re-inserted with followup drafts)
-- Fixed `inf` float crash in `sheets.py` across all 3 write paths (`append_row`, `write_rows`, `write_tab_with_aging`)
-- Added safety guard in `organize_sheets.py` — `write_tab_with_aging` now refuses to clear a tab when it reads 0 rows, preventing accidental data wipes
-- Created `recover_initial_sent.py` for emergency row recovery
+- Restored full sheet after tab-wipe: used Google Sheets version history to recover original lead data (cols A–L), then filled cols M–T (subject, email_body, followup, date_drafted, sent, status, thread_id) from session memory via `fill_sent_data.py`
+- All 20 Initial Email Sent leads fully restored with correct draft content and Gmail thread IDs
+- Ran organize_sheets — pipeline confirmed clean: 20 Initial Email Sent, 10 Needs Follow Up, 100 Ready for Call
 
 ### 🔲 Next Session
 
-- **URGENT (05/17):** 10 leads from 05/15 (Precise Plumbing, Black Sheep, etc.) are missing followup drafts — re-draft before nightly automation moves them to Needs Follow Up
+- 10 leads from 05/15 → nightly auto-moves to Needs Follow Up on 05/17; run `send follow up`
 - 10 leads from 05/16 → follow-up ready 05/18
-- 10 Needs Follow-Up plumbing leads → auto-move to Ready for Call after 05/17
+- Import new leads when ready, then `draft email`
 
 ---
 
