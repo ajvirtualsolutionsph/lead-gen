@@ -153,7 +153,12 @@ def move_rows_between_tabs(rows_to_move, from_tab, to_tab):
     ws_to = get_worksheet(to_tab)
     headers = ws_to.row_values(1) or LEADS_FIELDNAMES
     for row in rows_to_move:
-        ws_to.append_row([row.get(col, "") for col in headers], value_input_option="RAW")
+        def _safe(v):
+            import math
+            if isinstance(v, float) and (math.isinf(v) or math.isnan(v)):
+                return ""
+            return v
+        ws_to.append_row([_safe(row.get(col, "")) for col in headers], value_input_option="RAW")
 
 
 def append_new_rows(new_rows):

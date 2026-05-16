@@ -13,16 +13,15 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 
 ### ✅ Done
 
-- Changed follow-up threshold from 5 days → 2 days in `organize_sheets.py`
-- Added auto-preview of all drafted emails after `draft email` completes (CLAUDE.md + memory)
-- Fixed bug in `send_emails.py` — follow-up sends were blocked by wrong status filter (`Drafted` instead of `Needs Follow-up`)
-- Drafted + sent 10 initial emails (restaurants + trades in Springfield/Aurora)
-- Sent 10 follow-up emails to existing plumbing leads
+- Drafted 10 initial emails for KC restaurants (Antler Room, Anjin, Wise Guy, Lula, Clay & Fire, Farmhouse, Mason Jar, 1930 Classic Kitchen, Naree Kitchen, Holy Smoke BBQ)
+- Sent all 10 initial emails via Gmail
+- Fixed `inf` float bug in `sheets.py` — `inf` values in numeric fields (rating/review_count) caused JSON error during tab refresh; now sanitized to empty string
+- Confirmed 10 Needs Follow-Up leads (sent 05/15) are waiting — move to Ready for Call after 05/17 via nightly automation
 
 ### 🔲 Next Session
 
-- 10 initial emails (sent today) → follow-up ready in 2 days
-- 10 follow-up leads → move to Ready for Call in 2 days via nightly automation
+- 10 initial emails sent 05/16 → follow-up ready 05/18
+- 10 Needs Follow-Up leads → auto-move to Ready for Call after 05/17
 - Import new leads when ready, then `draft email`
 
 ---
