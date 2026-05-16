@@ -1,3 +1,4 @@
+import math
 import os
 
 import gspread
@@ -100,6 +101,13 @@ def read_rows(tab_name=TAB_NEW_LEADS):
     return records
 
 
+def _safe_val(v):
+    """Replace inf/NaN floats with empty string so JSON serialization never fails."""
+    if isinstance(v, float) and (math.isinf(v) or math.isnan(v)):
+        return ""
+    return v
+
+
 def write_rows(rows, tab_name=TAB_NEW_LEADS, fieldnames=None):
     ws = get_worksheet(tab_name)
     cols = fieldnames or LEADS_FIELDNAMES
@@ -111,7 +119,7 @@ def write_rows(rows, tab_name=TAB_NEW_LEADS, fieldnames=None):
 
     all_data = [current_headers]
     for row in rows:
-        all_data.append([row.get(col, "") for col in current_headers])
+        all_data.append([_safe_val(row.get(col, "")) for col in current_headers])
 
     ws.clear()
     ws.update(all_data, value_input_option="RAW")
@@ -153,12 +161,7 @@ def move_rows_between_tabs(rows_to_move, from_tab, to_tab):
     ws_to = get_worksheet(to_tab)
     headers = ws_to.row_values(1) or LEADS_FIELDNAMES
     for row in rows_to_move:
-        def _safe(v):
-            import math
-            if isinstance(v, float) and (math.isinf(v) or math.isnan(v)):
-                return ""
-            return v
-        ws_to.append_row([_safe(row.get(col, "")) for col in headers], value_input_option="RAW")
+        ws_to.append_row([_safe_val(row.get(col, "")) for col in headers], value_input_option="RAW")
 
 
 def append_new_rows(new_rows):

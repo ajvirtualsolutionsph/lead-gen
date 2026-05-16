@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from sheets import (
     get_creds, LEADS_FIELDNAMES,
     TAB_NEW_LEADS, TAB_INITIAL_SENT, TAB_NEEDS_FOLLOWUP, TAB_NO_REPLY, ALL_TABS,
-    read_rows, write_rows, move_rows_between_tabs, _get_spreadsheet,
+    read_rows, write_rows, move_rows_between_tabs, _get_spreadsheet, _safe_val,
 )
 from format_sheets import format_all_tabs
 
@@ -59,7 +59,11 @@ def write_tab_with_aging(spreadsheet, tab_name, rows):
     rows_with_aging = [add_aging(dict(r)) for r in rows]
     data = [all_cols]
     for row in rows_with_aging:
-        data.append([row.get(col, "") for col in all_cols])
+        data.append([_safe_val(row.get(col, "")) for col in all_cols])
+    # Safety: never clear a tab when the read returned 0 rows — a failed API
+    # read looks identical to an empty tab and would wipe real data.
+    if len(rows) == 0:
+        return 0
     ws.clear()
     ws.update(data, value_input_option="RAW")
     return len(rows)

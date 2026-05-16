@@ -13,16 +13,16 @@ This is the end-of-session save trigger. Execute all four steps every time "123"
 
 ### ✅ Done
 
-- Drafted 10 initial emails for KC restaurants (Antler Room, Anjin, Wise Guy, Lula, Clay & Fire, Farmhouse, Mason Jar, 1930 Classic Kitchen, Naree Kitchen, Holy Smoke BBQ)
-- Sent all 10 initial emails via Gmail
-- Fixed `inf` float bug in `sheets.py` — `inf` values in numeric fields (rating/review_count) caused JSON error during tab refresh; now sanitized to empty string
-- Confirmed 10 Needs Follow-Up leads (sent 05/15) are waiting — move to Ready for Call after 05/17 via nightly automation
+- Recovered all 20 Initial Email Sent rows lost to a tab-wipe bug (pulled thread IDs from Gmail, re-inserted with followup drafts)
+- Fixed `inf` float crash in `sheets.py` across all 3 write paths (`append_row`, `write_rows`, `write_tab_with_aging`)
+- Added safety guard in `organize_sheets.py` — `write_tab_with_aging` now refuses to clear a tab when it reads 0 rows, preventing accidental data wipes
+- Created `recover_initial_sent.py` for emergency row recovery
 
 ### 🔲 Next Session
 
-- 10 initial emails sent 05/16 → follow-up ready 05/18
-- 10 Needs Follow-Up leads → auto-move to Ready for Call after 05/17
-- Import new leads when ready, then `draft email`
+- **URGENT (05/17):** 10 leads from 05/15 (Precise Plumbing, Black Sheep, etc.) are missing followup drafts — re-draft before nightly automation moves them to Needs Follow Up
+- 10 leads from 05/16 → follow-up ready 05/18
+- 10 Needs Follow-Up plumbing leads → auto-move to Ready for Call after 05/17
 
 ---
 
